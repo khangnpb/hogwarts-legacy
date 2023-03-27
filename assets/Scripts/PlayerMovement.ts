@@ -35,14 +35,22 @@ export class PlayerMovement extends Component {
     //d2 = this.node.getChildByName('Down2');
     stt = 0;
     down = ["Down1", "Down2", "Down3", "Down4", "Down5"];
-    up = ["Up1", "Up2", "Up1", "Up2", "Up1"];
-    right = ["Right1", "Right2", "Right1", "Right2", "Right1"];
-    left = ["Left1", "Left2", "Left1", "Left2", "Left1"];
+    up = ["Up1", "Up2", "Up3", "Up4", "Up5"];
+    right = ["Right1", "Right2", "Right3", "Right4", "Right5"];
+    left = ["Left1", "Left2", "Left3", "Left4", "Left5"];
 
+    downLeft = ["DownLeft1", "DownLeft2", "DownLeft3", "DownLeft4", "DownLeft5"];
+    downRight = ["DownRight1", "DownRight2", "DownRight3", "DownRight4", "DownRight5"];
+    upLeft = ["UpLeft1", "UpLeft2", "UpLeft3", "UpLeft4", "UpLeft5"];
+    upRight = ["UpRight1", "UpRight2", "UpRight3", "UpRight4", "UpRight5"];
     i_d = 0
     i_u = 0
     i_r = 0
     i_l = 0
+    i_dl = 0
+    i_dr = 0
+    i_ul = 0
+    i_ur = 0
 
 
     isMovingUp = false;
@@ -63,6 +71,10 @@ export class PlayerMovement extends Component {
             this.node.getChildByName(this.up[i]).active = false;
             this.node.getChildByName(this.left[i]).active = false;
             this.node.getChildByName(this.right[i]).active = false;
+            this.node.getChildByName(this.downLeft[i]).active = false;
+            this.node.getChildByName(this.upLeft[i]).active = false;
+            this.node.getChildByName(this.downRight[i]).active = false;
+            this.node.getChildByName(this.upRight[i]).active = false;
         }
         this.node.getChildByName(this.down[this.i_d]).active = true;
         this.i_d = (this.i_d + 1) % 5;
@@ -121,51 +133,76 @@ export class PlayerMovement extends Component {
     move(deltaTime: number) {
         if (this.isMovingLeft) {
             this.movement.x = -1;
-            for (let i = 0; i <= 4; i++) {
-                this.node.getChildByName(this.down[i]).active = false;
-                this.node.getChildByName(this.up[i]).active = false;
-                this.node.getChildByName(this.left[i]).active = false;
-                this.node.getChildByName(this.right[i]).active = false;
-            }
-            this.node.getChildByName(this.left[this.i_l]).active = true;
-            this.i_l = (this.i_l + 1) % 5;
         } else if (this.isMovingRight) {
             this.movement.x = 1;
-            for (let i = 0; i <= 4; i++) {
-                this.node.getChildByName(this.down[i]).active = false;
-                this.node.getChildByName(this.up[i]).active = false;
-                this.node.getChildByName(this.left[i]).active = false;
-                this.node.getChildByName(this.right[i]).active = false;
-            }
-            this.node.getChildByName(this.right[this.i_r]).active = true;
-            this.i_r = (this.i_r + 1) % 5;
         } else {
             this.movement.x = 0;
         }
 
         if (this.isMovingUp) {
             this.movement.y = 1;
-            for (let i = 0; i <= 4; i++) {
-                this.node.getChildByName(this.down[i]).active = false;
-                this.node.getChildByName(this.up[i]).active = false;
-                this.node.getChildByName(this.left[i]).active = false;
-                this.node.getChildByName(this.right[i]).active = false;
-            }
-            this.node.getChildByName(this.up[this.i_u]).active = true;
-            this.i_u = (this.i_u + 1) % 5;
         } else if (this.isMovingDown) {
             this.movement.y = -1;
-            for (let i = 0; i <= 4; i++) {
-                this.node.getChildByName(this.down[i]).active = false;
-                this.node.getChildByName(this.up[i]).active = false;
-                this.node.getChildByName(this.left[i]).active = false;
-                this.node.getChildByName(this.right[i]).active = false;
-            }
-            this.node.getChildByName(this.down[this.i_d]).active = true;
-            this.i_d = (this.i_d + 1) % 5;
         } else {
             this.movement.y = 0;
         }
+
+        if (this.isMovingLeft || this.isMovingDown || this.isMovingRight || this.isMovingUp) {
+            for (let i = 0; i <= 4; i++) {
+                this.node.getChildByName(this.down[i]).active = false;
+                this.node.getChildByName(this.up[i]).active = false;
+                this.node.getChildByName(this.left[i]).active = false;
+                this.node.getChildByName(this.right[i]).active = false;
+                this.node.getChildByName(this.downLeft[i]).active = false;
+                this.node.getChildByName(this.upLeft[i]).active = false;
+                this.node.getChildByName(this.downRight[i]).active = false;
+                this.node.getChildByName(this.upRight[i]).active = false;
+            }
+        }
+
+        if (this.isMovingLeft) {
+            if (this.isMovingUp) {
+                //ul
+                this.node.getChildByName(this.upLeft[this.i_ul]).active = true;
+                this.i_ul = (this.i_ul + 1) % 5;
+            } else if (this.isMovingDown) {
+                //dl
+                this.node.getChildByName(this.downLeft[this.i_dl]).active = true;
+                this.i_dl = (this.i_dl + 1) % 5;
+            } else {
+                //l
+                this.node.getChildByName(this.left[this.i_l]).active = true;
+                this.i_l = (this.i_l + 1) % 5;
+            }
+        } else if (this.isMovingRight) {
+            if (this.isMovingUp) {
+                //ur
+                this.node.getChildByName(this.upRight[this.i_ur]).active = true;
+                this.i_ur = (this.i_ur + 1) % 5;
+            } else if (this.isMovingDown) {
+                //dr
+                this.node.getChildByName(this.downRight[this.i_dr]).active = true;
+                this.i_dr = (this.i_dr + 1) % 5;
+            } else {
+                //r
+                this.node.getChildByName(this.right[this.i_r]).active = true;
+                this.i_r = (this.i_r + 1) % 5;
+            }
+        } else {
+            if (this.isMovingUp) {
+                //u
+                this.node.getChildByName(this.up[this.i_u]).active = true;
+                this.i_u = (this.i_u + 1) % 5;
+            } else if (this.isMovingDown) {
+                //d
+                this.node.getChildByName(this.down[this.i_d]).active = true;
+                this.i_d = (this.i_d + 1) % 5;
+            } 
+        }
+
+        
+
+
 
         this.rigidbody.linearVelocity = new Vec2(
             this.movement.x * deltaTime * this.moveSpeed,
