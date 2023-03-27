@@ -14,6 +14,7 @@ import {
     math,
     Prefab,
     instantiate,
+    Button,
   } from "cc";
   const { ccclass, property } = _decorator;
 
@@ -29,6 +30,18 @@ export class Shooting extends Component {
         this.firePoint = this.node.getChildByName('FirePoint');
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+        input.on(Input.EventType.MOUSE_DOWN, this.onLeftMouse, this);
+    }
+
+    onLeftMouse(event: EventMouse) {
+        switch (event.getButton()) {
+            case 0:
+                this.isFiring = true;
+                break;
+            case 1:
+                this.isFiring = true;
+                break;
+        }
     }
 
     onKeyDown(event: EventKeyboard) {
