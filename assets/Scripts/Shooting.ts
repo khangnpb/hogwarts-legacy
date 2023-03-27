@@ -1,4 +1,4 @@
-import {
+﻿import {
     _decorator,
     Component,
     Node,
@@ -15,7 +15,8 @@ import {
     Prefab,
     instantiate,
   } from "cc";
-  const { ccclass, property } = _decorator;
+import { PlayerMovement } from "./PlayerMovement";
+const { ccclass, property } = _decorator;
 
 @ccclass('Shooting')
 export class Shooting extends Component {
@@ -24,11 +25,16 @@ export class Shooting extends Component {
     @property({ type: Prefab }) bulletPrefab: Prefab;
     bulletForce: number = 10;
     isFiring = false;
+    camera: Camera;
 
     start() {
         this.firePoint = this.node.getChildByName('FirePoint');
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+
+
+        this.camera = this.node.scene.getComponentInChildren(Camera);
+        input.on(Input.EventType.MOUSE_MOVE, this.onMouseMove, this); // Đăng ký sự kiện onMouseMove
     }
 
     onKeyDown(event: EventKeyboard) {
@@ -48,7 +54,24 @@ export class Shooting extends Component {
         }
       }
 
+
+    onMouseMove(event: EventMouse) {
+        const mousePos = new Vec3(event.getLocationX(), event.getLocationY());
+        const worldPos = new Vec3();
+        this.camera.screenToWorld(mousePos, worldPos);
+
+        // tính toán góc quay của FirePoint
+        const firePointWorldPos = this.firePoint.getWorldPosition();
+        const lookDir = worldPos.subtract(firePointWorldPos);
+        const angleInRadians = Math.atan2(lookDir.y, lookDir.x);
+        const angleInDegrees = math.toDegree(angleInRadians);
+        this.firePoint.angle = angleInDegrees - this.node.angle - 90;
+    }
+
+
     shoot() {
+        //Chỉnh góc theo con trỏ chuột
+
         let bullet = instantiate(this.bulletPrefab);
         this.node.parent.addChild(bullet);
         bullet.setWorldPosition(this.firePoint.getWorldPosition());
