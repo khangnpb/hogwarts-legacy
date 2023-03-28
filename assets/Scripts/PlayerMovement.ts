@@ -13,15 +13,14 @@
   Vec3,
   math,
 } from "cc";
+import { Player } from "./Player";
 const { ccclass, property } = _decorator;
 
 @ccclass("PlayerMovement")
-export class PlayerMovement extends Component {
+export class PlayerMovement extends Player {
     @property moveSpeed = 200;
     rigidbody: RigidBody2D;
     movement: Vec2 = new Vec2(0, 0);
-
-    camera: Camera;
 
     isMovingUp = false;
     isMovingDown = false;

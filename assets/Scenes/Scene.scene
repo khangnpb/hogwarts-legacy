@@ -3454,7 +3454,7 @@
     "_priority": 1073741824,
     "_fov": 23.061,
     "_fovAxis": 0,
-    "_orthoHeight": 327.4131274131274,
+    "_orthoHeight": 320,
     "_near": 0,
     "_far": 2000.8,
     "_color": {
@@ -6997,7 +6997,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -7209,7 +7209,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -8057,7 +8057,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -8269,7 +8269,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -12570,8 +12570,13 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "bulletPrefab": {
+    "moveSpeed": 200,
+    "bulletPrefab1": {
       "__uuid__": "89bd1d64-438e-4900-97ec-b03b66d56471",
+      "__expectedType__": "cc.Prefab"
+    },
+    "bulletPrefab2": {
+      "__uuid__": "a12467dc-90ac-4a38-b0af-d2845da03486",
       "__expectedType__": "cc.Prefab"
     },
     "_id": "bf77PXtRhGLad83wn2nhzT"
