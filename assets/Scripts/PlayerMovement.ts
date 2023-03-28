@@ -52,15 +52,14 @@ export class PlayerMovement extends Player {
     downRight = ["DownRight0", "DownRight1", "DownRight2", "DownRight3", "DownRight4", "DownRight5", "DownRight6", "DownRight7", "DownRight8"];
     upLeft = ["UpLeft0", "UpLeft1", "UpLeft2", "UpLeft3", "UpLeft4", "UpLeft5", "UpLeft6", "UpLeft7", "UpLeft8"];
     upRight = ["UpRight0", "UpRight1", "UpRight2", "UpRight3", "UpRight4", "UpRight5", "UpRight6", "UpRight7", "UpRight8"];
-    i_d = 0
-    i_u = 0
-    i_r = 0
-    i_l = 0
-    i_dl = 0
-    i_dr = 0
-    i_ul = 0
-    i_ur = 0
-    temp = 0;
+    i_d = 0;
+    i_u = 0;
+    i_r = 0;
+    i_l = 0;
+    i_dl = 0;
+    i_dr = 0;
+    i_ul = 0;
+    i_ur = 0;
     move_direction = "d";
     mouseAngle = 0;
 
@@ -89,8 +88,8 @@ export class PlayerMovement extends Player {
         this.node.getChildByName("AUpLeft0").active = false; 
         this.node.getChildByName("AUpRight0").active = false;
         
-        this.node.getChildByName(this.down[this.i_d]).active = true;
-        this.i_d = (this.i_d + 1) % 8;
+        this.node.getChildByName(this.down[Math.floor(this.i_d)]).active = true;
+        this.i_d++;
 
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
@@ -191,8 +190,6 @@ export class PlayerMovement extends Player {
     }
 
     move(deltaTime: number) {
-        let val = 0;
-        if (this.temp == 0) val = 1;
 
         if (this.isMovingLeft) {
             this.movement.x = -1;
@@ -240,40 +237,48 @@ export class PlayerMovement extends Player {
             if (this.isMovingLeft) {
                 if (this.isMovingUp) {
                     //ul
-                    this.node.getChildByName(this.upLeft[this.i_ul]).active = true;
-                    this.i_ul = (this.i_ul + val) % 8;
+                    this.node.getChildByName(this.upLeft[Math.floor(this.i_ul)]).active = true;
+                    this.i_ul += deltaTime * 10;
+                    if (this.i_ul >= 9) this.i_ul -= 8;
                 } else if (this.isMovingDown) {
                     //dl
-                    this.node.getChildByName(this.downLeft[this.i_dl]).active = true;
-                    this.i_dl = (this.i_dl + val) % 8;
+                    this.node.getChildByName(this.downLeft[Math.floor(this.i_dl)]).active = true;
+                    this.i_dl += deltaTime * 10;
+                    if (this.i_dl >= 9) this.i_dl -= 8;
                 } else {
                     //l
-                    this.node.getChildByName(this.left[this.i_l]).active = true;
-                    this.i_l = (this.i_l + val) % 8;
+                    this.node.getChildByName(this.left[Math.floor(this.i_l)]).active = true;
+                    this.i_l += deltaTime * 10;
+                    if (this.i_l >= 9) this.i_l -= 8;
                 }
             } else if (this.isMovingRight) {
                 if (this.isMovingUp) {
                     //ur
-                    this.node.getChildByName(this.upRight[this.i_ur]).active = true;
-                    this.i_ur = (this.i_ur + val) % 8;
+                    this.node.getChildByName(this.upRight[Math.floor(this.i_ur)]).active = true;
+                    this.i_ur += deltaTime * 10;
+                    if (this.i_ur >= 9) this.i_ur -= 8;
                 } else if (this.isMovingDown) {
                     //dr
-                    this.node.getChildByName(this.downRight[this.i_dr]).active = true;
-                    this.i_dr = (this.i_dr + val) % 8;
+                    this.node.getChildByName(this.downRight[Math.floor(this.i_dr)]).active = true;
+                    this.i_dr += deltaTime * 10;
+                    if (this.i_dr >= 9) this.i_dr -= 8;
                 } else {
                     //r
-                    this.node.getChildByName(this.right[this.i_r]).active = true;
-                    this.i_r = (this.i_r + val) % 8;
+                    this.node.getChildByName(this.right[Math.floor(this.i_r)]).active = true;
+                    this.i_r += deltaTime * 10;
+                    if (this.i_r >= 9) this.i_r -= 8;
                 }
             } else {
                 if (this.isMovingUp) {
                     //u
-                    this.node.getChildByName(this.up[this.i_u]).active = true;
-                    this.i_u = (this.i_u + val) % 8;
+                    this.node.getChildByName(this.up[Math.floor(this.i_u)]).active = true;
+                    this.i_u += deltaTime * 10;
+                    if (this.i_u >= 9) this.i_u -= 8;
                 } else if (this.isMovingDown) {
                     //d
-                    this.node.getChildByName(this.down[this.i_d]).active = true;
-                    this.i_d = (this.i_d + val) % 8;
+                    this.node.getChildByName(this.down[Math.floor(this.i_d)]).active = true;
+                    this.i_d += deltaTime * 10;
+                    if (this.i_d >= 9) this.i_d -= 8;
                 }
             }
             
@@ -292,7 +297,6 @@ export class PlayerMovement extends Player {
             }
         }
 
-        this.temp = (this.temp + 1) % 5;
 
         this.rigidbody.linearVelocity = new Vec2(
             this.movement.x * deltaTime * this.moveSpeed,
