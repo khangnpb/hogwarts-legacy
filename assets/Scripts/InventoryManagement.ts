@@ -27,9 +27,10 @@ export class InventoryManagement extends Component {
   inventory_node: Node[] = [];
   player: Shooting;
   gold: number;
+  havekey = -1;
 
   start() {
-    this.gold = 0 ;
+    this.gold = 0;
     this.inventory_node.push(this.node.getChildByName("item1"));
     this.inventory_node.push(this.node.getChildByName("item2"));
     this.inventory_node.push(this.node.getChildByName("item3"));
@@ -88,7 +89,7 @@ export class InventoryManagement extends Component {
         break;
     }
   }
-  addgold(x: number){
+  addgold(x: number) {
     this.gold += x;
   }
   useItem(index: number) {
@@ -105,11 +106,19 @@ export class InventoryManagement extends Component {
       this.player.mp += 50;
       if (this.player.mp > 100) this.player.mp = 100;
     } else if (type == 3) {
-      return;
+      this.inventory_type[index] = 0;
+      this.inventory_node[index].getChildByName("key").active = false;
     }
   }
-   
-  update(dt : number){
-     this.node.getChildByName("Gold").getChildByName("Label").getComponent(Label).string = this.gold.toString();
+
+  update(dt: number) {
+    this.havekey = -1;
+    for (let i = 0; i < 5; i++) {
+      if (this.inventory_type[i] == 3) this.havekey = i;
+    }
+    this.node
+      .getChildByName("Gold")
+      .getChildByName("Label")
+      .getComponent(Label).string = this.gold.toString();
   }
 }
