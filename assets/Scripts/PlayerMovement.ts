@@ -27,6 +27,7 @@ export class PlayerMovement extends Component {
     isMovingDown = false;
     isMovingLeft = false;
     isMovingRight = false;
+    isFiring = false;
 
     //Sprite
     down = ["Down0", "Down1", "Down2", "Down3", "Down4", "Down5", "Down6", "Down7", "Down8"];
@@ -47,8 +48,6 @@ export class PlayerMovement extends Component {
     i_ul = 0
     i_ur = 0
     temp = 0;
-    //Attack Sprite
-
 
     start() {
         this.camera = this.node.scene.getComponentInChildren(Camera);
@@ -65,6 +64,16 @@ export class PlayerMovement extends Component {
             this.node.getChildByName(this.downRight[i]).active = false;
             this.node.getChildByName(this.upRight[i]).active = false;
         }
+        /*
+        this.node.getChildByName('A' + this.down[0]).active = false;
+        this.node.getChildByName('A' + this.up[0]).active = false;
+        this.node.getChildByName('A' + this.left[0]).active = false;
+        this.node.getChildByName('A' + this.right[0]).active = false;
+        this.node.getChildByName('A' + this.downLeft[0]).active = false;
+        this.node.getChildByName('A' + this.upLeft[0]).active = false;
+        this.node.getChildByName('A' + this.downRight[0]).active = false;
+        this.node.getChildByName('A' + this.upRight[0]).active = false;
+        */
         this.node.getChildByName(this.down[this.i_d]).active = true;
         this.i_d = (this.i_d + 1) % 8;
 
@@ -99,6 +108,9 @@ export class PlayerMovement extends Component {
             case KeyCode.KEY_S:
                 this.isMovingDown = true;
                 break;
+            case KeyCode.SPACE:
+                this.isFiring = true;
+                break;
 
         }
     }
@@ -129,8 +141,13 @@ export class PlayerMovement extends Component {
             case KeyCode.KEY_S:
                 this.isMovingDown = false;
                 break;
+            case KeyCode.SPACE:
+                this.isFiring = false;
+                break;
         }
     }
+
+
 
     onMouseMove(event: EventMouse) {
         const mousePos = new Vec3(event.getLocationX(), event.getLocationY());
@@ -145,7 +162,6 @@ export class PlayerMovement extends Component {
     move(deltaTime: number) {
         let val = 0;
         if (this.temp == 0) val = 1;
-
 
         if (this.isMovingLeft) {
             this.movement.x = -1;
@@ -163,8 +179,9 @@ export class PlayerMovement extends Component {
             this.movement.y = 0;
         }
 
+
         //Load Sprite
-        if (this.isMovingLeft || this.isMovingDown || this.isMovingRight || this.isMovingUp) {
+        if (this.isMovingLeft || this.isMovingDown || this.isMovingRight || this.isMovingUp || this.isFiring) {
             for (let i = 0; i <= 8; i++) {
                 this.node.getChildByName(this.down[i]).active = false;
                 this.node.getChildByName(this.up[i]).active = false;
@@ -175,48 +192,94 @@ export class PlayerMovement extends Component {
                 this.node.getChildByName(this.downRight[i]).active = false;
                 this.node.getChildByName(this.upRight[i]).active = false;
             }
+            /*
+            this.node.getChildByName('A' + this.down[0]).active = false;
+            this.node.getChildByName('A' + this.up[0]).active = false;
+            this.node.getChildByName('A' + this.left[0]).active = false;
+            this.node.getChildByName('A' + this.right[0]).active = false;
+            this.node.getChildByName('A' + this.downLeft[0]).active = false;
+            this.node.getChildByName('A' + this.upLeft[0]).active = false;
+            this.node.getChildByName('A' + this.downRight[0]).active = false;
+            this.node.getChildByName('A' + this.upRight[0]).active = false;*/
         }
-        if (this.isMovingLeft) {
-            if (this.isMovingUp) {
-                //ul
-                this.node.getChildByName(this.upLeft[this.i_ul]).active = true;
-                this.i_ul = (this.i_ul + val) % 8;
-            } else if (this.isMovingDown) {
-                //dl
-                this.node.getChildByName(this.downLeft[this.i_dl]).active = true;
-                this.i_dl = (this.i_dl + val) % 8;
+        if (true) {
+            if (this.isMovingLeft) {
+                if (this.isMovingUp) {
+                    //ul
+                    this.node.getChildByName(this.upLeft[this.i_ul]).active = true;
+                    this.i_ul = (this.i_ul + val) % 8;
+                } else if (this.isMovingDown) {
+                    //dl
+                    this.node.getChildByName(this.downLeft[this.i_dl]).active = true;
+                    this.i_dl = (this.i_dl + val) % 8;
+                } else {
+                    //l
+                    this.node.getChildByName(this.left[this.i_l]).active = true;
+                    this.i_l = (this.i_l + val) % 8;
+                }
+            } else if (this.isMovingRight) {
+                if (this.isMovingUp) {
+                    //ur
+                    this.node.getChildByName(this.upRight[this.i_ur]).active = true;
+                    this.i_ur = (this.i_ur + val) % 8;
+                } else if (this.isMovingDown) {
+                    //dr
+                    this.node.getChildByName(this.downRight[this.i_dr]).active = true;
+                    this.i_dr = (this.i_dr + val) % 8;
+                } else {
+                    //r
+                    this.node.getChildByName(this.right[this.i_r]).active = true;
+                    this.i_r = (this.i_r + val) % 8;
+                }
             } else {
-                //l
-                this.node.getChildByName(this.left[this.i_l]).active = true;
-                this.i_l = (this.i_l + val) % 8;
+                if (this.isMovingUp) {
+                    //u
+                    this.node.getChildByName(this.up[this.i_u]).active = true;
+                    this.i_u = (this.i_u + val) % 8;
+                } else if (this.isMovingDown) {
+                    //d
+                    this.node.getChildByName(this.down[this.i_d]).active = true;
+                    this.i_d = (this.i_d + val) % 8;
+                }
             }
-        } else if (this.isMovingRight) {
-            if (this.isMovingUp) {
-                //ur
-                this.node.getChildByName(this.upRight[this.i_ur]).active = true;
-                this.i_ur = (this.i_ur + val) % 8;
-            } else if (this.isMovingDown) {
-                //dr
-                this.node.getChildByName(this.downRight[this.i_dr]).active = true;
-                this.i_dr = (this.i_dr + val) % 8;
+            
+        }
+        else {
+            if (this.isMovingLeft) {
+                if (this.isMovingUp) {
+                    this.node.getChildByName('A' + this.upLeft[0]).active = true;
+                } else if (this.isMovingDown) {
+                    //dl
+                    this.node.getChildByName('A' + this.downLeft[0]).active = true;
+                } else {
+                    //l
+                    this.node.getChildByName('A' + this.left[0]).active = true;
+                }
+            } else if (this.isMovingRight) {
+                if (this.isMovingUp) {
+                    //ur
+                    this.node.getChildByName('A' + this.upRight[0]).active = true;
+                } else if (this.isMovingDown) {
+                    //dr
+                    this.node.getChildByName('A' + this.downRight[0]).active = true;
+                } else {
+                    //r
+                    this.node.getChildByName('A' + this.right[0]).active = true;
+                }
             } else {
-                //r
-                this.node.getChildByName(this.right[this.i_r]).active = true;
-                this.i_r = (this.i_r + val) % 8;
-            }
-        } else {
-            if (this.isMovingUp) {
-                //u
-                this.node.getChildByName(this.up[this.i_u]).active = true;
-                this.i_u = (this.i_u + val) % 8;
-            } else if (this.isMovingDown) {
-                //d
-                this.node.getChildByName(this.down[this.i_d]).active = true;
-                this.i_d = (this.i_d + val) % 8;
+                if (this.isMovingUp) {
+                    //u
+                    this.node.getChildByName('A' + this.up[0]).active = true;
+                } else if (this.isMovingDown) {
+                    //d
+                    this.node.getChildByName('A' + this.down[0]).active = true;
+                }
             }
         }
+
         this.temp = (this.temp + 1) % 5;
 
+        //Không bắn mới di chuyển được
         this.rigidbody.linearVelocity = new Vec2(
             this.movement.x * deltaTime * this.moveSpeed,
             this.movement.y * deltaTime * this.moveSpeed
