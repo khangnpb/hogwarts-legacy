@@ -15,6 +15,7 @@
   Prefab,
   instantiate,
   Button,
+  ProgressBar,
 } from "cc";
 import { Player } from "./Player";
 const { ccclass, property } = _decorator;
@@ -110,9 +111,11 @@ export class Shooting extends Player {
   }
 
   update(dt: number) {
-    if (this.isFiring) {
-      this.shoot();
-      this.isFiring = false;
-    }
+      if (this.isFiring) {
+          this.shoot();
+          this.isFiring = false;
+        }
+        const mpbar = this.camera.getComponentInChildren(ProgressBar);
+        mpbar.progress = this.mp / 100;
   }
 }
