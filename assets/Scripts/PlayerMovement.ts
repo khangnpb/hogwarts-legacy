@@ -15,6 +15,20 @@
 } from "cc";
 const { ccclass, property } = _decorator;
 
+function getDirectionFromAngle(angle: number) {
+    
+    if (angle < 0 || angle > 360) angle = (angle + 360 * 100) % 360;
+
+    if (angle >= 0 && angle < 22.5 || angle < 360  && angle >= 337.5) return "u";
+    if (angle >= 22.5 && angle < 67.5) return "ul";
+    if (angle >= 67.5 && angle < 112.5) return "l";
+    if (angle >= 112.5 && angle < 157.5) return "dl";
+    if (angle >= 157.5 && angle < 202.5) return "d";
+    if (angle >= 202.5 && angle < 247.5) return "dr";
+    if (angle >= 247.5 && angle < 292.5) return "r";
+    if (angle >= 292.5 && angle < 337.5) return "ur";
+}
+
 @ccclass("PlayerMovement")
 export class PlayerMovement extends Component {
     @property moveSpeed = 200;
@@ -48,6 +62,8 @@ export class PlayerMovement extends Component {
     i_ul = 0
     i_ur = 0
     temp = 0;
+    move_direction = "d";
+    mouseAngle = 0;
 
     start() {
         this.camera = this.node.scene.getComponentInChildren(Camera);
@@ -64,22 +80,24 @@ export class PlayerMovement extends Component {
             this.node.getChildByName(this.downRight[i]).active = false;
             this.node.getChildByName(this.upRight[i]).active = false;
         }
-        /*
-        this.node.getChildByName('A' + this.down[0]).active = false;
-        this.node.getChildByName('A' + this.up[0]).active = false;
-        this.node.getChildByName('A' + this.left[0]).active = false;
-        this.node.getChildByName('A' + this.right[0]).active = false;
-        this.node.getChildByName('A' + this.downLeft[0]).active = false;
-        this.node.getChildByName('A' + this.upLeft[0]).active = false;
-        this.node.getChildByName('A' + this.downRight[0]).active = false;
-        this.node.getChildByName('A' + this.upRight[0]).active = false;
-        */
+        
+        this.node.getChildByName("ADown0").active = false;
+        this.node.getChildByName("AUp0").active = false; 
+        this.node.getChildByName("ALeft0").active = false;
+        this.node.getChildByName("ARight0").active = false;
+        this.node.getChildByName("ADownLeft0").active = false; 
+        this.node.getChildByName("ADownRight0").active = false; 
+        this.node.getChildByName("AUpLeft0").active = false; 
+        this.node.getChildByName("AUpRight0").active = false;
+        
         this.node.getChildByName(this.down[this.i_d]).active = true;
         this.i_d = (this.i_d + 1) % 8;
 
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
         input.on(Input.EventType.MOUSE_MOVE, this.onMouseMove, this);
+        input.on(Input.EventType.MOUSE_DOWN, this.onLeftMouse, this);
+        input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this);
     }
 
     onKeyDown(event: EventKeyboard) {
@@ -147,7 +165,20 @@ export class PlayerMovement extends Component {
         }
     }
 
+    onLeftMouse(event: EventMouse) {
+        switch (event.getButton()) {
+            case 0:
+                this.isFiring = true;
+                break;
+            case 1:
+                this.isFiring = true;
+                break;
+        }
+    }
 
+    onMouseUp(event: EventMouse) {
+        this.isFiring = false;
+    }
 
     onMouseMove(event: EventMouse) {
         const mousePos = new Vec3(event.getLocationX(), event.getLocationY());
@@ -157,6 +188,7 @@ export class PlayerMovement extends Component {
         const angleInRadians = Math.atan2(lookDir.y, lookDir.x);
         const angleInDegrees = math.toDegree(angleInRadians);
         //this.node.angle = angleInDegrees - 90;
+        this.mouseAngle = angleInDegrees - 90;
     }
 
     move(deltaTime: number) {
@@ -192,17 +224,20 @@ export class PlayerMovement extends Component {
                 this.node.getChildByName(this.downRight[i]).active = false;
                 this.node.getChildByName(this.upRight[i]).active = false;
             }
-            /*
-            this.node.getChildByName('A' + this.down[0]).active = false;
-            this.node.getChildByName('A' + this.up[0]).active = false;
-            this.node.getChildByName('A' + this.left[0]).active = false;
-            this.node.getChildByName('A' + this.right[0]).active = false;
-            this.node.getChildByName('A' + this.downLeft[0]).active = false;
-            this.node.getChildByName('A' + this.upLeft[0]).active = false;
-            this.node.getChildByName('A' + this.downRight[0]).active = false;
-            this.node.getChildByName('A' + this.upRight[0]).active = false;*/
+            
+            this.node.getChildByName("ADown0").active = false;
+            this.node.getChildByName("AUp0").active = false;
+            this.node.getChildByName("ALeft0").active = false;
+            this.node.getChildByName("ARight0").active = false;
+            this.node.getChildByName("ADownLeft0").active = false;
+            this.node.getChildByName("ADownRight0").active = false;
+            this.node.getChildByName("AUpLeft0").active = false;
+            this.node.getChildByName("AUpRight0").active = false;
         }
-        if (true) {
+
+        
+
+        if (!this.isFiring) {
             if (this.isMovingLeft) {
                 if (this.isMovingUp) {
                     //ul
@@ -245,41 +280,21 @@ export class PlayerMovement extends Component {
             
         }
         else {
-            if (this.isMovingLeft) {
-                if (this.isMovingUp) {
-                    this.node.getChildByName('A' + this.upLeft[0]).active = true;
-                } else if (this.isMovingDown) {
-                    //dl
-                    this.node.getChildByName('A' + this.downLeft[0]).active = true;
-                } else {
-                    //l
-                    this.node.getChildByName('A' + this.left[0]).active = true;
-                }
-            } else if (this.isMovingRight) {
-                if (this.isMovingUp) {
-                    //ur
-                    this.node.getChildByName('A' + this.upRight[0]).active = true;
-                } else if (this.isMovingDown) {
-                    //dr
-                    this.node.getChildByName('A' + this.downRight[0]).active = true;
-                } else {
-                    //r
-                    this.node.getChildByName('A' + this.right[0]).active = true;
-                }
-            } else {
-                if (this.isMovingUp) {
-                    //u
-                    this.node.getChildByName('A' + this.up[0]).active = true;
-                } else if (this.isMovingDown) {
-                    //d
-                    this.node.getChildByName('A' + this.down[0]).active = true;
-                }
+            this.move_direction = getDirectionFromAngle(this.mouseAngle);
+            switch (this.move_direction) {
+                case "d": this.node.getChildByName("ADown0").active = true; break;
+                case "u": this.node.getChildByName("AUp0").active = true; break;
+                case "l": this.node.getChildByName("ALeft0").active = true; break;
+                case "r": this.node.getChildByName("ARight0").active = true; break;
+                case "dl": this.node.getChildByName("ADownLeft0").active = true; break;
+                case "dr": this.node.getChildByName("ADownRight0").active = true; break;
+                case "ul": this.node.getChildByName("AUpLeft0").active = true; break;
+                case "ur": this.node.getChildByName("AUpRight0").active = true; break;
             }
         }
 
         this.temp = (this.temp + 1) % 5;
 
-        //Không bắn mới di chuyển được
         this.rigidbody.linearVelocity = new Vec2(
             this.movement.x * deltaTime * this.moveSpeed,
             this.movement.y * deltaTime * this.moveSpeed
