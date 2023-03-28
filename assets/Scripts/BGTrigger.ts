@@ -64,6 +64,5 @@ export class BGTriggerr extends Component {
       this.switch.active = false;
       this.spear.active = true;
     }
-    // console.log("Player in : ", this.player.getPosition().x," ",this.player.getPosition().y);
   }
 }
