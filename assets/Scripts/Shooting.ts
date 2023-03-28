@@ -111,11 +111,11 @@ export class Shooting extends Player {
   }
 
   update(dt: number) {
-      if (this.isFiring) {
-          this.shoot();
-          this.isFiring = false;
-        }
-        const mpbar = this.camera.getComponentInChildren(ProgressBar);
-        mpbar.progress = this.mp / 100;
+    if (this.isFiring) {
+      this.shoot();
+      this.isFiring = false;
+    } else if (this.mp < 100) {
+      this.mp = -0.01;
+    }
   }
 }

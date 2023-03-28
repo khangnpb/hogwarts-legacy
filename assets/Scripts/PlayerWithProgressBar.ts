@@ -20,18 +20,17 @@ const { ccclass, property } = _decorator;
 @ccclass("PlayerWithProgressBar")
 export class PlayerWithProgressBar extends Component {
   mpBar: ProgressBar;
+  hpBar: ProgressBar;
 
   start() {
     this.mpBar = this.node.getChildByName("MPBar").getComponent(ProgressBar);
     this.mpBar.progress = 1;
+    this.hpBar = this.node.getChildByName("HPBar").getComponent(ProgressBar);
+    this.hpBar.progress = 1;
   }
 
   update(dt: number) {
-    this.mpBar.progress -= 0.01;
-    console.log(
-      "MP MP MP",
-      this.node.scene.getComponentInChildren(Shooting).mp
-    );
-    //     this.node.scene.getComponentInChildren(Shooting).mp / 100;
+    this.mpBar.progress = this.node.scene.getComponentInChildren(Shooting).mp / 100;
+    this.hpBar.progress = this.node.scene.getComponentInChildren(Shooting).hp / 100;
   }
 }
