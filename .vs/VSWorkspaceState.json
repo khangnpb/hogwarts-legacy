@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\assets",
+    "\\assets\\Scripts"
   ],
-  "SelectedNode": "\\C:\\Users\\Admin\\Source\\Repos\\hogwarts-legacy-3",
+  "SelectedNode": "\\assets\\Scripts\\Player.ts",
   "PreviewInSolutionExplorer": false
 }
