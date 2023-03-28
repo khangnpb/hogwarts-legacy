@@ -16,6 +16,7 @@ import {
   SpriteFrame,
   loader,
   Rect,
+  Label,
 } from "cc";
 import { Shooting } from "./Shooting";
 const { ccclass, property } = _decorator;
@@ -25,11 +26,10 @@ export class InventoryManagement extends Component {
   inventory_type: number[] = [];
   inventory_node: Node[] = [];
   player: Shooting;
+  gold: number;
 
   start() {
-    console.log(
-      "..................................................................."
-    );
+    this.gold = 0 ;
     this.inventory_node.push(this.node.getChildByName("item1"));
     this.inventory_node.push(this.node.getChildByName("item2"));
     this.inventory_node.push(this.node.getChildByName("item3"));
@@ -88,6 +88,9 @@ export class InventoryManagement extends Component {
         break;
     }
   }
+  addgold(x: number){
+    this.gold += x;
+  }
   useItem(index: number) {
     let type = this.inventory_type[index];
     if (type == 0) return;
@@ -104,5 +107,9 @@ export class InventoryManagement extends Component {
     } else if (type == 3) {
       return;
     }
+  }
+   
+  update(dt : number){
+     this.node.getChildByName("Gold").getChildByName("Label").getComponent(Label).string = this.gold.toString();
   }
 }

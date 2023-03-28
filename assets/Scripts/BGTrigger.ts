@@ -62,11 +62,13 @@ export class BGTriggerr extends Component {
         if (this.isNear_Chest01 == true && this.openChest1 == false) {
           this.inventory.getItem(1);
           this.inventory.getItem(2);
+          this.inventory.addgold(50);
           this.openChest1 = true;
         }
         if (this.isNear_Chest02 == true && this.openChest2 == false) {
           this.inventory.getItem(2);
           this.inventory.getItem(3);
+          this.inventory.addgold(100);
           this.openChest2 = true;
         }
         break;
