@@ -28,8 +28,6 @@ export class Player extends Component {
 
   start() {
     this.camera = this.node.scene.getComponentInChildren(Camera);
-    const mpbar = this.node.getChildByName("MPBar").getComponent(ProgressBar);
-    mpbar.progress = this.mp / 100;
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
   }
 
