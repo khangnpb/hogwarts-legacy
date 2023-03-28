@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.25",
+  "importer": "image",
+  "imported": true,
+  "uuid": "b41e4a14-2d69-436b-9a3b-4304fa1a6de4",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "b41e4a14-2d69-436b-9a3b-4304fa1a6de4@6c48a",
+      "displayName": "Congtat",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "b41e4a14-2d69-436b-9a3b-4304fa1a6de4",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "b41e4a14-2d69-436b-9a3b-4304fa1a6de4@f9941",
+      "displayName": "Congtat",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -48,
+        "offsetY": 616,
+        "trimX": 880,
+        "trimY": 48,
+        "width": 192,
+        "height": 208,
+        "rawWidth": 2048,
+        "rawHeight": 1536,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -96,
+            -104,
+            0,
+            96,
+            -104,
+            0,
+            -96,
+            104,
+            0,
+            96,
+            104,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            880,
+            1488,
+            1072,
+            1488,
+            880,
+            1280,
+            1072,
+            1280
+          ],
+          "nuv": [
+            0.4296875,
+            0.8333333333333334,
+            0.5234375,
+            0.8333333333333334,
+            0.4296875,
+            0.96875,
+            0.5234375,
+            0.96875
+          ],
+          "minPos": [
+            -96,
+            -104,
+            0
+          ],
+          "maxPos": [
+            96,
+            104,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "b41e4a14-2d69-436b-9a3b-4304fa1a6de4@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": true,
+    "hasAlpha": true,
+    "redirect": "b41e4a14-2d69-436b-9a3b-4304fa1a6de4@f9941"
+  }
+}
