@@ -107,7 +107,6 @@
       "gfx-webgl",
       "gfx-webgl2",
       "intersection-2d",
-      "light-probe",
       "marionette",
       "particle-2d",
       "physics-2d-box2d",
@@ -118,8 +117,8 @@
       "tween",
       "ui",
       "video",
-      "websocket",
-      "webview"
+      "webview",
+      "xr"
     ],
     "noDeprecatedFeatures": {
       "value": false,
