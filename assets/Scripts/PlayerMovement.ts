@@ -47,6 +47,7 @@ export class PlayerMovement extends Component {
     i_dr = 0
     i_ul = 0
     i_ur = 0
+    temp = 0;
 
     start() {
         this.camera = this.node.scene.getComponentInChildren(Camera);
@@ -141,6 +142,10 @@ export class PlayerMovement extends Component {
     }
 
     move(deltaTime: number) {
+        let val = 0;
+        if (this.temp == 0) val = 1;
+
+
         if (this.isMovingLeft) {
             this.movement.x = -1;
         } else if (this.isMovingRight) {
@@ -175,41 +180,42 @@ export class PlayerMovement extends Component {
             if (this.isMovingUp) {
                 //ul
                 this.node.getChildByName(this.upLeft[this.i_ul]).active = true;
-                this.i_ul = (this.i_ul + 1) % 5;
+                this.i_ul = (this.i_ul + val) % 5;
             } else if (this.isMovingDown) {
                 //dl
                 this.node.getChildByName(this.downLeft[this.i_dl]).active = true;
-                this.i_dl = (this.i_dl + 1) % 5;
+                this.i_dl = (this.i_dl + val) % 5;
             } else {
                 //l
                 this.node.getChildByName(this.left[this.i_l]).active = true;
-                this.i_l = (this.i_l + 1) % 5;
+                this.i_l = (this.i_l + val) % 5;
             }
         } else if (this.isMovingRight) {
             if (this.isMovingUp) {
                 //ur
                 this.node.getChildByName(this.upRight[this.i_ur]).active = true;
-                this.i_ur = (this.i_ur + 1) % 5;
+                this.i_ur = (this.i_ur + val) % 5;
             } else if (this.isMovingDown) {
                 //dr
                 this.node.getChildByName(this.downRight[this.i_dr]).active = true;
-                this.i_dr = (this.i_dr + 1) % 5;
+                this.i_dr = (this.i_dr + val) % 5;
             } else {
                 //r
                 this.node.getChildByName(this.right[this.i_r]).active = true;
-                this.i_r = (this.i_r + 1) % 5;
+                this.i_r = (this.i_r + val) % 5;
             }
         } else {
             if (this.isMovingUp) {
                 //u
                 this.node.getChildByName(this.up[this.i_u]).active = true;
-                this.i_u = (this.i_u + 1) % 5;
+                this.i_u = (this.i_u + val) % 5;
             } else if (this.isMovingDown) {
                 //d
                 this.node.getChildByName(this.down[this.i_d]).active = true;
-                this.i_d = (this.i_d + 1) % 5;
+                this.i_d = (this.i_d + val) % 5;
             }
         }
+        this.temp = (this.temp + 1) % 5;
 
         this.rigidbody.linearVelocity = new Vec2(
             this.movement.x * deltaTime * this.moveSpeed,
