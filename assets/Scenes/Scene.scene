@@ -21,11 +21,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-<<<<<<< Updated upstream
       "__id__": 1090
-=======
-      "__id__": 945
->>>>>>> Stashed changes
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -56,11 +52,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-<<<<<<< Updated upstream
       "__id__": 1091
-=======
-      "__id__": 946
->>>>>>> Stashed changes
     },
     "_id": "e27f538a-5add-44a8-a6b9-b306308efee2"
   },
@@ -91,7 +83,6 @@
     "_active": true,
     "_components": [
       {
-<<<<<<< Updated upstream
         "__id__": 1086
       },
       {
@@ -102,18 +93,7 @@
       },
       {
         "__id__": 1089
-=======
-        "__id__": 941
-      },
-      {
-        "__id__": 942
-      },
-      {
-        "__id__": 943
-      },
-      {
-        "__id__": 944
->>>>>>> Stashed changes
+
       }
     ],
     "_prefab": null,
@@ -19507,7 +19487,6 @@
     },
     "_children": [
       {
-<<<<<<< Updated upstream
         "__id__": 921
       },
       {
@@ -19518,19 +19497,13 @@
       },
       {
         "__id__": 1044
-=======
-        "__id__": 932
->>>>>>> Stashed changes
       }
     ],
     "_active": true,
     "_components": [
       {
-<<<<<<< Updated upstream
         "__id__": 1085
-=======
-        "__id__": 940
->>>>>>> Stashed changes
+
       }
     ],
     "_prefab": null,
@@ -19572,7 +19545,6 @@
     },
     "_children": [
       {
-<<<<<<< Updated upstream
         "__id__": 922
       },
       {
@@ -19607,15 +19579,12 @@
       },
       {
         "__id__": 955
-=======
-        "__id__": 933
->>>>>>> Stashed changes
       }
     ],
     "_active": true,
     "_components": [
       {
-<<<<<<< Updated upstream
+
         "__id__": 958
       },
       {
@@ -19626,18 +19595,6 @@
       },
       {
         "__id__": 961
-=======
-        "__id__": 936
-      },
-      {
-        "__id__": 937
-      },
-      {
-        "__id__": 938
-      },
-      {
-        "__id__": 939
->>>>>>> Stashed changes
       }
     ],
     "_prefab": null,
@@ -25643,7 +25600,7 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-<<<<<<< Updated upstream
+
       "__id__": 1092
     },
     "shadows": {
@@ -25660,24 +25617,6 @@
     },
     "lightProbeInfo": {
       "__id__": 1097
-=======
-      "__id__": 947
-    },
-    "shadows": {
-      "__id__": 948
-    },
-    "_skybox": {
-      "__id__": 949
-    },
-    "fog": {
-      "__id__": 950
-    },
-    "octree": {
-      "__id__": 951
-    },
-    "lightProbeInfo": {
-      "__id__": 952
->>>>>>> Stashed changes
     },
     "bakedWithStationaryMainLight": false
   },
