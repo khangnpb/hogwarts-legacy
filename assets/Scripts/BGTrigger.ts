@@ -39,7 +39,6 @@ export class BGTriggerr extends Component {
   onKeyDown(event: EventKeyboard) {
     switch (event.keyCode) {
       case KeyCode.KEY_F:
-        // console.log("F F F F F F F F F F ");
         if (this.isNear == true) this.isSwitch = !this.isSwitch;
         break;
     }
