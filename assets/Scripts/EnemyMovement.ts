@@ -95,7 +95,7 @@ export class EnemyMovement extends Enemy {
             this.delayAttack -= deltaTime;
 
             if (this.delayAttack <= 0) {
-                this.delayAttack = 3;
+                this.delayAttack = 1;
                 player.hp -= 10;
             }
         }
