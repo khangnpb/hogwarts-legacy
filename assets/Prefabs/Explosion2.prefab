@@ -106,7 +106,7 @@
       "b": 255,
       "a": 255
     },
-    "duration": 3,
+    "duration": 1.2,
     "emissionRate": 999.999985098839,
     "life": 0.20000000298023224,
     "lifeVar": 0.5,
@@ -127,8 +127,8 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 7,
-      "y": 7
+      "x": 71,
+      "y": 71
     },
     "emitterMode": 0,
     "gravity": {
