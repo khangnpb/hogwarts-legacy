@@ -16,6 +16,7 @@ import {
   Button,
   Sprite,
 } from "cc";
+import { PlayerMovement } from "./PlayerMovement";
 import { Shooting } from "./Shooting";
 const { ccclass, property } = _decorator;
 
@@ -36,8 +37,8 @@ export class PlayerWithProgressBar extends Component {
   }
 
   update(dt: number) {
-    this.mpBar.progress = this.node.scene.getComponentInChildren(Shooting).mp / 100;
-    this.hpBar.progress = this.node.scene.getComponentInChildren(Shooting).hp / 100;
+      this.mpBar.progress = this.node.scene.getComponentInChildren(Shooting).mp / 100;
+      this.hpBar.progress = this.node.scene.getComponentInChildren(Shooting).hp / 100;
     if (this.node.scene.getComponentInChildren(Shooting).typeshoot == 1) {
       this.skill1.grayscale = false; this.skill2.grayscale = true;
     }else {

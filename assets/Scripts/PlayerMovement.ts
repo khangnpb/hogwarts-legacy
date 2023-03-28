@@ -1,26 +1,26 @@
 ﻿import {
-  _decorator,
-  Component,
-  Node,
-  RigidBody2D,
-  input,
-  Input,
-  EventKeyboard,
-  KeyCode,
-  Vec2,
-  Camera,
-  EventMouse,
-  Vec3,
-  math,
+    _decorator,
+    Component,
+    Node,
+    RigidBody2D,
+    input,
+    Input,
+    EventKeyboard,
+    KeyCode,
+    Vec2,
+    Camera,
+    EventMouse,
+    Vec3,
+    math,
 } from "cc";
 import { Player } from "./Player";
 const { ccclass, property } = _decorator;
 
 function getDirectionFromAngle(angle: number) {
-    
+
     if (angle < 0 || angle > 360) angle = (angle + 360 * 100) % 360;
 
-    if (angle >= 0 && angle < 22.5 || angle < 360  && angle >= 337.5) return "u";
+    if (angle >= 0 && angle < 22.5 || angle < 360 && angle >= 337.5) return "u";
     if (angle >= 22.5 && angle < 67.5) return "ul";
     if (angle >= 67.5 && angle < 112.5) return "l";
     if (angle >= 112.5 && angle < 157.5) return "dl";
@@ -78,16 +78,16 @@ export class PlayerMovement extends Player {
             this.node.getChildByName(this.downRight[i]).active = false;
             this.node.getChildByName(this.upRight[i]).active = false;
         }
-        
+
         this.node.getChildByName("ADown0").active = false;
-        this.node.getChildByName("AUp0").active = false; 
+        this.node.getChildByName("AUp0").active = false;
         this.node.getChildByName("ALeft0").active = false;
         this.node.getChildByName("ARight0").active = false;
-        this.node.getChildByName("ADownLeft0").active = false; 
-        this.node.getChildByName("ADownRight0").active = false; 
-        this.node.getChildByName("AUpLeft0").active = false; 
+        this.node.getChildByName("ADownLeft0").active = false;
+        this.node.getChildByName("ADownRight0").active = false;
+        this.node.getChildByName("AUpLeft0").active = false;
         this.node.getChildByName("AUpRight0").active = false;
-        
+
         this.node.getChildByName(this.down[Math.floor(this.i_d)]).active = true;
         this.i_d++;
 
@@ -220,7 +220,7 @@ export class PlayerMovement extends Player {
                 this.node.getChildByName(this.downRight[i]).active = false;
                 this.node.getChildByName(this.upRight[i]).active = false;
             }
-            
+
             this.node.getChildByName("ADown0").active = false;
             this.node.getChildByName("AUp0").active = false;
             this.node.getChildByName("ALeft0").active = false;
@@ -231,7 +231,7 @@ export class PlayerMovement extends Player {
             this.node.getChildByName("AUpRight0").active = false;
         }
 
-        
+
 
         if (!this.isFiring) {
             if (this.isMovingLeft) {
@@ -281,7 +281,7 @@ export class PlayerMovement extends Player {
                     if (this.i_d >= 9) this.i_d -= 8;
                 }
             }
-            
+
         }
         else {
             this.move_direction = getDirectionFromAngle(this.mouseAngle);

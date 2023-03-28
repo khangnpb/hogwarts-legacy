@@ -1,5 +1,8 @@
 import { _decorator, Prefab, Component, Node, Collider2D, BoxCollider2D, Contact2DType, instantiate } from 'cc';
+import { PlayerMovement } from './PlayerMovement';
 const { ccclass, property } = _decorator;
+
+import { Shooting } from "./Shooting";
 
 @ccclass('Bullet')
 export class Bullet extends Component {
@@ -7,7 +10,7 @@ export class Bullet extends Component {
     collider: Collider2D;
 
     @property({ type: Prefab }) explosionPrefab: Prefab;
-
+    damage = 25;
     start() {
         this.collider = this.getComponent(BoxCollider2D);
         if (this.collider) {
@@ -20,13 +23,21 @@ export class Bullet extends Component {
     }
 
     onBeginContact(self: Node, other: Node) {
+        let temp1 = other.getComponent("EnemyMovement");
+
+        let p = this.node.scene.getComponentInChildren(PlayerMovement).getComponent(Shooting);
+
+
+        if (temp1) {
+            temp1.reduceHP(this.damage * p.typeshoot);
+        }
+
         const explosion = instantiate(this.explosionPrefab);
         this.node.parent.addChild(explosion);
         explosion.setWorldPosition(this.node.getWorldPosition());
-        setTimeout(() =>{
+        setTimeout(() => {
             if (this.node.active) this.node.destroy();
         });
-
     }
 }
 
