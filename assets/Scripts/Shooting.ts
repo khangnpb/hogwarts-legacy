@@ -53,11 +53,9 @@ export class Shooting extends Player {
       case KeyCode.SPACE:
         this.isFiring = true;
         break;
-      case KeyCode.DIGIT_1:
-        this.typeshoot = 1;
-        break;
-      case KeyCode.DIGIT_2:
-        this.typeshoot = 2;
+      case KeyCode.KEY_Q:
+        if (this.typeshoot == 1) this.typeshoot = 2;
+        else this.typeshoot = 1;
         break;
     }
   }

@@ -15,6 +15,7 @@ import {
   Button,
   Sprite,
 } from "cc";
+import { InventoryManagement } from "./InventoryManagement";
 const { ccclass, property } = _decorator;
 
 @ccclass("BGTrigger")
@@ -27,6 +28,7 @@ export class BGTriggerr extends Component {
   isNear_Chest01 = false;
   isNear_Chest02 = false;
 
+  inventory: InventoryManagement;
   switchcm: Node;
   switch: Node;
   chest1: Node;
@@ -45,6 +47,11 @@ export class BGTriggerr extends Component {
     this.chest2 = this.node.getChildByName("Chest_02");
     this.spear = this.node.getChildByName("spear");
     this.player = this.node.getParent().getChildByName("PlayerMovement");
+    this.inventory = this.node
+      .getParent()
+      .getChildByName("CameraMovement")
+      .getChildByName("inventory")
+      .getComponent(InventoryManagement);
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
   }
 
@@ -52,10 +59,16 @@ export class BGTriggerr extends Component {
     switch (event.keyCode) {
       case KeyCode.KEY_F:
         if (this.isNear_Switch == true) this.isSwitch = !this.isSwitch;
-        if (this.isNear_Chest01 == true && this.openChest1 == false)
+        if (this.isNear_Chest01 == true && this.openChest1 == false) {
+          this.inventory.getItem(1);
+          this.inventory.getItem(2);
           this.openChest1 = true;
-        if (this.isNear_Chest02 == true && this.openChest2 == false)
+        }
+        if (this.isNear_Chest02 == true && this.openChest2 == false) {
+          this.inventory.getItem(2);
+          this.inventory.getItem(3);
           this.openChest2 = true;
+        }
         break;
     }
   }

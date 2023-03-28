@@ -18,8 +18,6 @@
 } from "cc";
 import { Enemy } from "./Enemy";
 const { ccclass, property } = _decorator;
-import { PlayerMovement } from './PlayerMovement';
-import { Player } from './Player';
 import { Shooting } from './Shooting';
 
 @ccclass("EnemyMovement")
