@@ -27,18 +27,17 @@ export class PlayerMovement extends Component {
     isMovingDown = false;
     isMovingLeft = false;
     isMovingRight = false;
-    isFiring = false;
 
     //Sprite
-    down = ["Down1", "Down2", "Down3", "Down4", "Down5"];
-    up = ["Up1", "Up2", "Up3", "Up4", "Up5"];
-    right = ["Right1", "Right2", "Right3", "Right4", "Right5"];
-    left = ["Left1", "Left2", "Left3", "Left4", "Left5"];
+    down = ["Down0", "Down1", "Down2", "Down3", "Down4", "Down5", "Down6", "Down7", "Down8"];
+    up = ["Up0", "Up1", "Up2", "Up3", "Up4", "Up5", "Up6", "Up7", "Up8"];
+    right = ["Right0", "Right1", "Right2", "Right3", "Right4", "Right5", "Right6", "Right7", "Right8"];
+    left = ["Left0", "Left1", "Left2", "Left3", "Left4", "Left5", "Left6", "Left7", "Left8"];
 
-    downLeft = ["DownLeft1", "DownLeft2", "DownLeft3", "DownLeft4", "DownLeft5"];
-    downRight = ["DownRight1", "DownRight2", "DownRight3", "DownRight4", "DownRight5"];
-    upLeft = ["UpLeft1", "UpLeft2", "UpLeft3", "UpLeft4", "UpLeft5"];
-    upRight = ["UpRight1", "UpRight2", "UpRight3", "UpRight4", "UpRight5"];
+    downLeft = ["DownLeft0", "DownLeft1", "DownLeft2", "DownLeft3", "DownLeft4", "DownLeft5", "DownLeft6", "DownLeft7", "DownLeft8"];
+    downRight = ["DownRight0", "DownRight1", "DownRight2", "DownRight3", "DownRight4", "DownRight5", "DownRight6", "DownRight7", "DownRight8"];
+    upLeft = ["UpLeft0", "UpLeft1", "UpLeft2", "UpLeft3", "UpLeft4", "UpLeft5", "UpLeft6", "UpLeft7", "UpLeft8"];
+    upRight = ["UpRight0", "UpRight1", "UpRight2", "UpRight3", "UpRight4", "UpRight5", "UpRight6", "UpRight7", "UpRight8"];
     i_d = 0
     i_u = 0
     i_r = 0
@@ -48,13 +47,15 @@ export class PlayerMovement extends Component {
     i_ul = 0
     i_ur = 0
     temp = 0;
+    //Attack Sprite
+
 
     start() {
         this.camera = this.node.scene.getComponentInChildren(Camera);
         this.rigidbody = this.getComponent(RigidBody2D);
         this.node.angle = (this.node.angle + 180) % 360;
 
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i <= 8; i++) {
             this.node.getChildByName(this.down[i]).active = false;
             this.node.getChildByName(this.up[i]).active = false;
             this.node.getChildByName(this.left[i]).active = false;
@@ -65,7 +66,7 @@ export class PlayerMovement extends Component {
             this.node.getChildByName(this.upRight[i]).active = false;
         }
         this.node.getChildByName(this.down[this.i_d]).active = true;
-        this.i_d = (this.i_d + 1) % 5;
+        this.i_d = (this.i_d + 1) % 8;
 
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
@@ -164,7 +165,7 @@ export class PlayerMovement extends Component {
 
         //Load Sprite
         if (this.isMovingLeft || this.isMovingDown || this.isMovingRight || this.isMovingUp) {
-            for (let i = 0; i <= 4; i++) {
+            for (let i = 0; i <= 8; i++) {
                 this.node.getChildByName(this.down[i]).active = false;
                 this.node.getChildByName(this.up[i]).active = false;
                 this.node.getChildByName(this.left[i]).active = false;
@@ -175,44 +176,43 @@ export class PlayerMovement extends Component {
                 this.node.getChildByName(this.upRight[i]).active = false;
             }
         }
-
         if (this.isMovingLeft) {
             if (this.isMovingUp) {
                 //ul
                 this.node.getChildByName(this.upLeft[this.i_ul]).active = true;
-                this.i_ul = (this.i_ul + val) % 5;
+                this.i_ul = (this.i_ul + val) % 8;
             } else if (this.isMovingDown) {
                 //dl
                 this.node.getChildByName(this.downLeft[this.i_dl]).active = true;
-                this.i_dl = (this.i_dl + val) % 5;
+                this.i_dl = (this.i_dl + val) % 8;
             } else {
                 //l
                 this.node.getChildByName(this.left[this.i_l]).active = true;
-                this.i_l = (this.i_l + val) % 5;
+                this.i_l = (this.i_l + val) % 8;
             }
         } else if (this.isMovingRight) {
             if (this.isMovingUp) {
                 //ur
                 this.node.getChildByName(this.upRight[this.i_ur]).active = true;
-                this.i_ur = (this.i_ur + val) % 5;
+                this.i_ur = (this.i_ur + val) % 8;
             } else if (this.isMovingDown) {
                 //dr
                 this.node.getChildByName(this.downRight[this.i_dr]).active = true;
-                this.i_dr = (this.i_dr + val) % 5;
+                this.i_dr = (this.i_dr + val) % 8;
             } else {
                 //r
                 this.node.getChildByName(this.right[this.i_r]).active = true;
-                this.i_r = (this.i_r + val) % 5;
+                this.i_r = (this.i_r + val) % 8;
             }
         } else {
             if (this.isMovingUp) {
                 //u
                 this.node.getChildByName(this.up[this.i_u]).active = true;
-                this.i_u = (this.i_u + val) % 5;
+                this.i_u = (this.i_u + val) % 8;
             } else if (this.isMovingDown) {
                 //d
                 this.node.getChildByName(this.down[this.i_d]).active = true;
-                this.i_d = (this.i_d + val) % 5;
+                this.i_d = (this.i_d + val) % 8;
             }
         }
         this.temp = (this.temp + 1) % 5;
