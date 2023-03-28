@@ -115,7 +115,7 @@ export class Shooting extends Player {
       this.shoot();
       this.isFiring = false;
     } else if (this.mp < 100) {
-      this.mp += 0.01;
+      this.mp += 0.1;
     }
   }
 }
