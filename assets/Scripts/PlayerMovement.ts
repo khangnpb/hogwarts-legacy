@@ -408,6 +408,7 @@ export class PlayerMovement extends Player {
   }
 
   update(deltaTime: number) {
+
     this.move(deltaTime);
     if (this.node.position.y > 800) {
       console.log(

@@ -17055,7 +17055,7 @@
     "_enabled": true,
     "__prefab": null,
     "moveSpeed": 300,
-    "nextScene": "",
+    "nextScene": "menu-scene",
     "_id": "36XiWIvHVOaI+LgPfymQG1"
   },
   {
@@ -17076,6 +17076,7 @@
       "__uuid__": "a12467dc-90ac-4a38-b0af-d2845da03486",
       "__expectedType__": "cc.Prefab"
     },
+    "menu": "",
     "_id": "bf77PXtRhGLad83wn2nhzT"
   },
   {

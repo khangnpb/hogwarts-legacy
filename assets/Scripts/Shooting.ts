@@ -16,6 +16,7 @@
   instantiate,
   Button,
   ProgressBar,
+  director,
 } from "cc";
 import { BGTriggerr } from "./BGTrigger";
 import { Player } from "./Player";
@@ -26,6 +27,7 @@ export class Shooting extends Player {
   firePoint: Node;
   @property({ type: Prefab }) bulletPrefab1: Prefab;
   @property({ type: Prefab }) bulletPrefab2: Prefab;
+  @property(String) menu: string = "";
   bulletForce: number = 10;
   isFiring = false;
   
@@ -117,5 +119,10 @@ export class Shooting extends Player {
     } else if (this.mp < 100) {
       this.mp += 0.1;
     }
+    if (this.hp <= 0) {
+      this.hp = 0;
+      director.loadScene(this.menu);
+    }
+
   }
 }
