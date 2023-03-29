@@ -17,6 +17,7 @@
   Button,
   ProgressBar,
 } from "cc";
+import { BGTriggerr } from "./BGTrigger";
 import { Player } from "./Player";
 const { ccclass, property } = _decorator;
 
@@ -27,7 +28,7 @@ export class Shooting extends Player {
   @property({ type: Prefab }) bulletPrefab2: Prefab;
   bulletForce: number = 10;
   isFiring = false;
-
+  
   start() {
     this.firePoint = this.node.getChildByName("FirePoint");
     this.camera = this.node.scene.getComponentInChildren(Camera);
@@ -53,11 +54,10 @@ export class Shooting extends Player {
       case KeyCode.SPACE:
         this.isFiring = true;
         break;
-      case KeyCode.DIGIT_1:
-        this.typeshoot = 1;
-        break;
-      case KeyCode.DIGIT_2:
-        this.typeshoot = 2;
+      case KeyCode.KEY_Q:
+        if (!this.node.getParent().getChildByName("Background").getComponent(BGTriggerr).isTake) break;
+        if (this.typeshoot == 1) this.typeshoot = 2;
+        else this.typeshoot = 1;
         break;
     }
   }

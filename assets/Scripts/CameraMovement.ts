@@ -1,123 +1,81 @@
 import {
-    _decorator,
-    Component,
-    Node,
-    RigidBody2D,
-    input,
-    Input,
-    EventKeyboard,
-    KeyCode,
-    Vec2,
-    Camera,
-    EventMouse,
-    Vec3,
-    math,
+  _decorator,
+  Component,
+  Node,
+  RigidBody2D,
+  input,
+  Input,
+  EventKeyboard,
+  KeyCode,
+  Vec2,
+  Camera,
+  EventMouse,
+  Vec3,
+  math,
+  UITransform,
 } from "cc";
+import { PlayerMovement } from "./PlayerMovement";
 const { ccclass, property } = _decorator;
 
 @ccclass("CameraMovement")
 export class CameraMovement extends Component {
-    @property moveSpeed = 200;
-    rigidbody: RigidBody2D;
-    movement: Vec2 = new Vec2(0, 0);
+  @property moveSpeed = 200;
+  rigidbody: RigidBody2D;
+  movement: Vec2 = new Vec2(0, 0);
 
+  @property minX = -30;
+  @property minY = -245;
+  @property maxX = 21;
+  @property maxY = 651;
 
-    isMovingUp = false;
-    isMovingDown = false;
-    isMovingLeft = false;
-    isMovingRight = false;
-    isFiring = false;
+  xStore = 0;
+  yStore = 0;
 
-    start() {
-        this.rigidbody = this.getComponent(RigidBody2D);
+  start() {
+    this.rigidbody = this.getComponent(RigidBody2D);
+  }
 
-        input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
-        input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+  move(deltaTime: number) {
+    let pNode = this.node.parent.getChildByName("PlayerMovement");
+    let x = pNode.position.x,
+      y = pNode.position.y;
+
+    if (x + this.xStore >= this.minX && x + this.xStore <= this.maxX) {
+      x = x + this.xStore;
+      this.xStore = 0;
+    }
+    if (y + this.yStore >= this.minY && y + this.yStore <= this.maxY) {
+      y = y + this.yStore;
+      this.yStore = 0;
     }
 
-    onKeyDown(event: EventKeyboard) {
-        switch (event.keyCode) {
-            case KeyCode.ARROW_LEFT:
-                this.isMovingLeft = true;
-                break;
-            case KeyCode.ARROW_RIGHT:
-                this.isMovingRight = true;
-                break;
-            case KeyCode.ARROW_UP:
-                this.isMovingUp = true;
-                break;
-            case KeyCode.ARROW_DOWN:
-                this.isMovingDown = true;
-                break; 
-            case KeyCode.KEY_A:
-                this.isMovingLeft = true;
-                break;
-            case KeyCode.KEY_D:
-                this.isMovingRight = true;
-                break;
-            case KeyCode.KEY_W:
-                this.isMovingUp = true;
-                break;
-            case KeyCode.KEY_S:
-                this.isMovingDown = true;
-                break;
+    if (x < this.minX) {
+      this.xStore = x - this.minX;
+      x = this.minX;
+    } else if (x > this.maxX) {
+      this.xStore = x - this.maxX;
+      x = this.maxX;
+    } else this.xStore = 0;
 
-        }
-    }
+    if (y < this.minY) {
+      this.yStore = y - this.minY;
+      y = this.minY;
+    } else if (y > this.maxY) {
+      this.yStore = y - this.maxY;
+      y = this.maxY;
+    } else this.yStore = 0;
 
-    onKeyUp(event: EventKeyboard) {
-        switch (event.keyCode) {
-            case KeyCode.ARROW_LEFT:
-                this.isMovingLeft = false;
-                break;
-            case KeyCode.ARROW_RIGHT:
-                this.isMovingRight = false;
-                break;
-            case KeyCode.ARROW_UP:
-                this.isMovingUp = false;
-                break;
-            case KeyCode.ARROW_DOWN:
-                this.isMovingDown = false;
-                break;
-            case KeyCode.KEY_A:
-                this.isMovingLeft = false;
-                break;
-            case KeyCode.KEY_D:
-                this.isMovingRight = false;
-                break;
-            case KeyCode.KEY_W:
-                this.isMovingUp = false;
-                break;
-            case KeyCode.KEY_S:
-                this.isMovingDown = false;
-                break;
-        }
-    }
-    move(deltaTime: number) {
-        if (this.isMovingLeft) {
-            this.movement.x = -1;
-        } else if (this.isMovingRight) {
-            this.movement.x = 1;
-        } else {
-            this.movement.x = 0;
-        }
+    //this.node.position = new Vec3(x, y);
+    this.rigidbody.linearVelocity = new Vec2(
+      x - this.node.position.x,
+      y - this.node.position.y
+    );
+  }
 
-        if (this.isMovingUp) {
-            this.movement.y = 1;
-        } else if (this.isMovingDown) {
-            this.movement.y = -1;
-        } else {
-            this.movement.y = 0;
-        }
-
-        this.rigidbody.linearVelocity = new Vec2(
-            this.movement.x * deltaTime * this.moveSpeed,
-            this.movement.y * deltaTime * this.moveSpeed
-        );
-    }
-
-    update(deltaTime: number) {
-        this.move(deltaTime)
-
-    }
+  update(deltaTime: number) {
+    this.move(deltaTime);
+    console.log(this.node.position.x, this.node.position.y);
+    //y = -245, 651
+    //x = -30, 21
+  }
 }
