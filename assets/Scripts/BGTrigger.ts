@@ -43,6 +43,7 @@ export class BGTriggerr extends Component {
   doorneed: Node;
   player: Node;
   opendoor: Node;
+  closedoor: Node;
 
   start() {
     this.switchcm = this.node.getChildByName("Switch_cm");
@@ -54,6 +55,7 @@ export class BGTriggerr extends Component {
     this.doorcm = this.node.getChildByName("Door_cm");
     this.doorneed = this.node.getChildByName("Door_need");
     this.opendoor = this.node.getChildByName("OpenDoor");
+    this.closedoor = this.node.getChildByName("CloseDoor");
     this.spear = this.node.getChildByName("spear");
     this.player = this.node.getParent().getChildByName("PlayerMovement");
     this.inventory = this.node
@@ -176,8 +178,10 @@ export class BGTriggerr extends Component {
 
     if (this.isOpen == true) {
       this.opendoor.active = true;
+      this.closedoor.active = false;
     } else {
       this.opendoor.active = false;
+      this.closedoor.active = true;
     }
   }
 }
