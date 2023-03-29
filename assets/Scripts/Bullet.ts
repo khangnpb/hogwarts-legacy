@@ -37,7 +37,7 @@ export class Bullet extends Component {
     let p = this.node.scene
       .getComponentInChildren(PlayerMovement)
       .getComponent(Shooting);
-
+        
     if (temp1) {
       temp1.reduceHP(this.damage * p.typeshoot);
     }
