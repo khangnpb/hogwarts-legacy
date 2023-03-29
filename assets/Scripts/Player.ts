@@ -49,7 +49,6 @@ export class Player extends Component {
   update(dt: number) {
     if (this.hp <= 0) {
       this.hp = 0;
-      director.loadScene(this.menu);
     }
   }
 }

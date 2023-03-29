@@ -31,7 +31,7 @@ export class BGTriggerr extends Component {
   isNear_Door = false;
   isOpen = false;
   isBroken = false;
-  isTake = false;
+  @property isTake = false;
   isHavekey = -1;
 
   inventory: InventoryManagement;
@@ -207,7 +207,7 @@ export class BGTriggerr extends Component {
     ) {
       this.isTake = true;
       this.inventory.addgold(400);
-    } 
+    }
     if (this.isBroken) {
       if (!this.isTake) this.newpower.active = true;
       else this.newpower.active = false;
