@@ -24,6 +24,7 @@ export class Bullet extends Component {
 
     onBeginContact(self: Node, other: Node) {
         let temp1 = other.getComponent("EnemyMovement");
+        let temp2 = other.getComponent("Boss");
 
         let p = this.node.scene.getComponentInChildren(PlayerMovement).getComponent(Shooting);
 
@@ -31,7 +32,10 @@ export class Bullet extends Component {
         if (temp1) {
             temp1.reduceHP(this.damage * p.typeshoot);
         }
-
+        if (temp2) {
+            temp2.reduceHP(this.damage * p.typeshoot);
+        }
+        
         const explosion = instantiate(this.explosionPrefab);
         this.node.parent.addChild(explosion);
         explosion.setWorldPosition(this.node.getWorldPosition());
