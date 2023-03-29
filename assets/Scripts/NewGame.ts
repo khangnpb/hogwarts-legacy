@@ -1,38 +1,41 @@
-import { _decorator, Component, Node, Button } from 'cc';
-const { ccclass, property } = _decorator;
-import { Label } from 'cc';
+import { _decorator, Component, Node, Button, Label, loader } from 'cc';
 import * as cc from 'cc';
+const { ccclass, property } = _decorator;
 
 @ccclass('NewGame')
-export class MyButton extends Component {
+export class NewGame extends Component {
   @property(Node)
-  label: Node | null = null;
+  myNode: Node | null = null;
+
+  private button?: Button;
 
   onLoad() {
     // Add a click event listener to the button
-    const button = this.getComponent(Button);
-    if (button) {
-      button.node.on(Button.EventType.CLICK, this.onClick, this);
-    }
+    this.button = this.getComponent(Button);
+    console.log(this.button.name);
+    
+    this.button?.node.on(Button.EventType.CLICK, this.onClick, this);
   }
 
   onDestroy() {
     const button = this.getComponent(Button);
-    if (button) {
+    
+    if(button && button.node){
       button.node.off(Button.EventType.CLICK, this.onClick, this);
+     
     }
+      
   }
 
   onClick() {
     console.log('Button clicked');
-    if (this.label) {
-        const labelComponent = this.label.getComponent(Label) as Label;
-        if (labelComponent) {
-            cc.director.loadScene('Scene',() =>{cc.log('success')});
-        }
-        else{
-            this.label.getComponent(Label).string = 'Button clicked';
-        }
+    
+    const currentScene = cc.director.getScene();
+    if (currentScene.name !== 'Scene' && !cc.loader.isAutoRelease('Scene.fire')) {
+      cc.director.loadScene('Scene', () => {
+        console.log('Scene loaded successfully');
+      });
     }
+
   }
 }
