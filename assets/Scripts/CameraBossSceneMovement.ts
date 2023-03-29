@@ -24,9 +24,9 @@ export class CameraMovement extends Component {
     movement: Vec2 = new Vec2(0, 0);
 
     minX = -30;
-    minY = -245;
-    maxX = 21;
-    maxY = 651;
+    minY = -315;
+    maxX = 1068;
+    maxY = 616;
     xStore = 0;
     yStore = 0;
 
@@ -75,8 +75,5 @@ export class CameraMovement extends Component {
 
     update(deltaTime: number) {
         this.move(deltaTime);
-        console.log(this.node.position.x, this.node.position.y);
-        //y = -245, 651 
-        //x = -30, 21
     }
 }
