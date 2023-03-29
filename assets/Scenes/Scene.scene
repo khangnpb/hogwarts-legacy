@@ -40747,6 +40747,10 @@
     "_enabled": true,
     "__prefab": null,
     "moveSpeed": 300,
+    "minX": -30,
+    "minY": -300,
+    "maxX": 1050,
+    "maxY": 651,
     "_id": "296HhO1YVO7KUSruintfss"
   },
   {
@@ -40773,7 +40777,7 @@
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 1,
-    "_type": 2,
+    "_type": 1,
     "_allowSleep": true,
     "_gravityScale": 0,
     "_linearDamping": 0,
