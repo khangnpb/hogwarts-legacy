@@ -50,7 +50,6 @@ export class InventoryManagement extends Component {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
 
     this.getItem(1);
-    this.getItem(1);
     this.getItem(2);
   }
   getItem(type: number) {

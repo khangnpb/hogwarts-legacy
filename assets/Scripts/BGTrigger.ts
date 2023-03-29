@@ -15,6 +15,7 @@ import {
   Button,
   Sprite,
 } from "cc";
+import { EnemyMovement } from "./EnemyMovement";
 import { InventoryManagement } from "./InventoryManagement";
 const { ccclass, property } = _decorator;
 
@@ -29,6 +30,8 @@ export class BGTriggerr extends Component {
   isNear_Chest02 = false;
   isNear_Door = false;
   isOpen = false;
+  isBroken = false;
+  isTake = false;
   isHavekey = -1;
 
   inventory: InventoryManagement;
@@ -44,6 +47,9 @@ export class BGTriggerr extends Component {
   player: Node;
   opendoor: Node;
   closedoor: Node;
+  boxbroken: Node;
+  newpower: Node;
+  boxboxbox: Node;
 
   start() {
     this.switchcm = this.node.getChildByName("Switch_cm");
@@ -56,6 +62,9 @@ export class BGTriggerr extends Component {
     this.doorneed = this.node.getChildByName("Door_need");
     this.opendoor = this.node.getChildByName("OpenDoor");
     this.closedoor = this.node.getChildByName("CloseDoor");
+    this.boxbroken = this.node.getChildByName("BoxBroken");
+    this.newpower = this.node.getChildByName("newPower");
+    this.boxboxbox = this.node.getChildByName("BoxBoxBox");
     this.spear = this.node.getChildByName("spear");
     this.player = this.node.getParent().getChildByName("PlayerMovement");
     this.inventory = this.node
@@ -93,6 +102,11 @@ export class BGTriggerr extends Component {
   update(dt: number) {
     console.log(this.player.getPosition().x, " ", this.player.getPosition().y);
     this.isHavekey = this.inventory.havekey;
+    if (
+      this.boxboxbox.getComponent(EnemyMovement) &&
+      this.boxboxbox.getComponent(EnemyMovement).hp <= 0
+    )
+      this.isBroken = true;
 
     if (
       this.player.getPosition().x > 400 &&
@@ -182,6 +196,22 @@ export class BGTriggerr extends Component {
     } else {
       this.opendoor.active = false;
       this.closedoor.active = true;
+    }
+    if (
+      this.player.position.x > 1450 &&
+      this.player.position.x < 1500 &&
+      this.player.position.y > -425 &&
+      this.player.position.y < -375 &&
+      this.isBroken &&
+      !this.isTake
+    ) {
+      this.isTake = true;
+      this.inventory.addgold(400);
+    } 
+    if (this.isBroken) {
+      if (!this.isTake) this.newpower.active = true;
+      else this.newpower.active = false;
+      this.boxbroken.active = true;
     }
   }
 }

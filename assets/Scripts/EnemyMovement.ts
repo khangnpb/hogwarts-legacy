@@ -174,8 +174,10 @@ export class EnemyMovement extends Enemy {
       this.getComponent(BoxCollider2D).destroy();
       this.inventory.addgold(10);
       for (let i = 0; i <= 5; i++) {
-        this.node.getChildByName(this.left[i]).active = false;
-        this.node.getChildByName(this.right[i]).active = false;
+        if (this.node.getChildByName(this.left[i])) {
+          this.node.getChildByName(this.left[i]).active = false;
+          this.node.getChildByName(this.right[i]).active = false;
+        }
       }
       this.destroy();
     }
