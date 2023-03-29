@@ -31,8 +31,8 @@ export class Bullet extends Component {
   update(deltaTime: number) {}
 
   onBeginContact(self: Node, other: Node) {
-    let temp1 = other.getComponent(EnemyMovement);
-    let temp2 = other.getComponent(Boss);
+    let temp1 = other.getComponent("EnemyMovement");
+    let temp2 = other.getComponent("Boss");
 
     let p = this.node.scene
       .getComponentInChildren(PlayerMovement)

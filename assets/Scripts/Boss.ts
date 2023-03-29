@@ -76,26 +76,24 @@ export default class Boss extends Component {
         // left
         //show left-att sprite
         //delay 3s
-        setTimeout(() => {
           this.node.getChildByName("left-att").active = false;
           this.node.getChildByName("right-att").active = false;
           this.node.getChildByName("Idle").active = false;
           this.node.getChildByName("Attack").active = true;
           this.node.getChildByName("Die").active = false;
           this.node.getChildByName("left-att").active = true;
-        }, 6000);
+        
         let newdr = this.checkPlayerArea();
         if (newdr == direction) playerScript.reduceHp(20);
       } else {
         // right
-        setTimeout(() => {
           this.node.getChildByName("left-att").active = false;
           this.node.getChildByName("right-att").active = false;
           this.node.getChildByName("Idle").active = false;
           this.node.getChildByName("Attack").active = true;
           this.node.getChildByName("Die").active = false;
           this.node.getChildByName("right-att").active = true;
-        }, 6000);
+
         let newdr = this.checkPlayerArea();
         if (newdr == direction) playerScript.reduceHp(20);
       }   
@@ -110,6 +108,8 @@ export default class Boss extends Component {
       this.node.getChildByName(this.idle_sprite[0]).active = false;
       this.node.getChildByName(this.att_sprite[0]).active = false;
       this.node.getChildByName(this.die_sprite[0]).active = true; //show die sprite
+      this.node.getChildByName("left-att").active = false;
+    this.node.getChildByName("right-att").active = false;
     }
   }
   

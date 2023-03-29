@@ -41,7 +41,7 @@ export class PlayerWithProgressBar extends Component {
     this.isGetskill2 = this.node
       .getParent()
       .getChildByName("Background")
-      .getComponent(BGTriggerr).isTake;
+      .getComponent(BGTriggerr)?.isTake;
 
     this.mpBar.progress =
       this.node.scene.getComponentInChildren(Shooting).mp / 100;
