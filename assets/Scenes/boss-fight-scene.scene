@@ -7997,8 +7997,8 @@
     "__prefab": null,
     "moveSpeed": 300,
     "minX": -30,
-    "minY": -300,
-    "maxX": 1050,
+    "minY": -245,
+    "maxX": 21,
     "maxY": 651,
     "_id": "18hjYjTnFLYb02+J+t9ZvM"
   },
